@@ -108,7 +108,7 @@ really is:
     system which would be some work to reimplement in Neovim. I'm up for this,
     but not before rewriting the plugin.
 
-*   No debugger for the same reaons
+*   No debugger for the same reasons
 
 *   You can't turn off syntax highlighting in the console input text. Some might
     like this but I'm not sure I do.
