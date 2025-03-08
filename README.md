@@ -3,7 +3,7 @@
 This is a _very_ basic proof-of-concept plugin which lets you use Neovim with R
 via the [Ark Jupyter kernel](https://github.com/posit-dev/ark). In particular,
 this plugin lets you communicate with Ark via Neovim's built-in terminal, and
-also benefit from Ark's lovely LSP server which update to reflect the packages
+also benefit from Ark's lovely LSP server which updates to reflect the packages
 and objects loaded in your R session.
 
 ## Prerequisites
