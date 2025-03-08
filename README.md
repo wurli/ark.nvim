@@ -1,5 +1,7 @@
 # ark.nvim
 
+![demo](https://github.com/user-attachments/assets/55376554-6dd1-4882-8732-cb04f7d93560)
+
 This is a _very_ basic proof-of-concept plugin which lets you use Neovim with R
 via the [Ark Jupyter kernel](https://github.com/posit-dev/ark). In particular,
 this plugin lets you communicate with Ark via Neovim's built-in terminal, and
@@ -120,5 +122,11 @@ really is:
 
 *   Etc.
 
+## See also
 
+*   [R.nvim](https://github.com/R-nvim/R.nvim) for an actually usable R plugin
+
+*   [Ark](https://github.com/posit-dev/ark)
+
+*   [Positron](https://github.com/posit-dev/positron)
 
