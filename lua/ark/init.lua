@@ -63,7 +63,6 @@ M.start_kernel = function()
     end
 
     M.process.lsp_port = get_available_port()
-    vim.print({port = M.process.lsp_port})
     M.process.buf = vim.api.nvim_create_buf(false, false)
 
     vim.api.nvim_buf_call(M.process.buf, function()
@@ -152,9 +151,7 @@ M.execute = function(lines)
     vim.fn.chansend(M.process.channel, lines)
 end
 
-
-
-M.setup = function(cfg)
+function M.setup(cfg)
     config = vim.tbl_extend("force", config, cfg)
     vim.validate({
         r_startup_file = { config.r_startup_file, { "string", "boolean" } },
