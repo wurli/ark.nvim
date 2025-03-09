@@ -1,13 +1,12 @@
 M = {}
 
 local helper_file = function(file)
-    local curr_file = debug.getinfo(1).source
+    local curr_file = debug.getinfo(1).source:gsub("^@", "")
     local pkg_dir = vim.fs.dirname(vim.fs.dirname(vim.fs.dirname(curr_file)))
     local path = vim.fs.joinpath(pkg_dir, "helpers", file)
-    if not vim.fn.filereadable(path) then
+    if vim.fn.filereadable(path) == 0 then
         error("Can't find helper file " .. path)
     end
-    vim.print("Found path " .. path)
     return path
 end
 
