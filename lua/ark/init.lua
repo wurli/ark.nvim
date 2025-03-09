@@ -103,7 +103,7 @@ end
 
 ---@param opts? table Passed to |nvim_open_win()|
 M.open = function(opts)
-    if not M.is_running() then
+    if not require("ark").is_running() then
         M.start_kernel()
     end
 
@@ -146,6 +146,7 @@ end
 M.execute = function(lines)
     if not M.is_running() then
         print("Ark is not running - use :ArkOpen to start Ark.")
+        vim.fn.getchar()
         return
     end
     vim.fn.chansend(M.process.channel, lines)
@@ -168,9 +169,9 @@ function M.setup(cfg)
     end
 
     vim.api.nvim_create_user_command("ArkStartKernel", function() require("ark").start_kernel() end, {})
-    vim.api.nvim_create_user_command("ArkOpen", function() require("ark").open() end, {})
-    vim.api.nvim_create_user_command("ArkKill", function() require("ark").kill() end, {})
-    vim.api.nvim_create_user_command("ArkRestart", function() require("ark").restart() end, {})
+    vim.api.nvim_create_user_command("ArkOpen",        function() require("ark").open() end, {})
+    vim.api.nvim_create_user_command("ArkKill",        function() require("ark").kill() end, {})
+    vim.api.nvim_create_user_command("ArkRestart",     function() require("ark").restart() end, {})
 
     if config.auto_start then
         vim.api.nvim_create_autocmd("BufEnter", {
