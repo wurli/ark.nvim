@@ -73,7 +73,12 @@ M.start_kernel = function()
             .. "--lsp-channel=127.0.0.1:" .. M.process.lsp_port .. " "
             .. "--log " .. config.log_file .. " "
             .. "--startup-file " .. config.r_startup_file .. " "
-            .. config.ark_args
+            .. config.ark_args,
+            {
+                on_exit = function()
+                    M.process = { client_id = nil, buf = -1, win = -1 }
+                end
+            }
         )
     end)
     vim.api.nvim_create_autocmd("ExitPre", {

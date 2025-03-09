@@ -18,7 +18,7 @@ kernel_manager.start_kernel(extra_arguments = ark_extra_args)
 
 client = kernel_manager.client()
 client.start_channels()
-client.wait_for_ready(timeout = 5)
+client.wait_for_ready(timeout = 10)
 
 # Tell Ark to start the LSP on the given channel
 client.shell_channel.send(client.session.msg("comm_open", {
