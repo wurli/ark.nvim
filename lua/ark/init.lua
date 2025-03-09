@@ -3,7 +3,11 @@ M = {}
 local helper_file = function(file)
     local curr_file = debug.getinfo(1).short_src
     local pkg_dir = vim.fs.dirname(vim.fs.dirname(vim.fs.dirname(curr_file)))
-    return vim.fs.joinpath(pkg_dir, "helpers", file)
+    local path = vim.fs.joinpath(pkg_dir, "helpers", file)
+    if not vim.fn.filereadable(path) then
+        error("Can't find helper file " .. path)
+    end
+    return path
 end
 
 ---@class ArkConfig
