@@ -7,6 +7,7 @@ local helper_file = function(file)
     if not vim.fn.filereadable(path) then
         error("Can't find helper file " .. path)
     end
+    print("Found path " .. file)
     return path
 end
 
@@ -93,6 +94,7 @@ M.start_kernel = function()
     end
 
     M.process.lsp_port = get_available_port()
+    vim.print({port = M.process.lsp_port})
     M.process.buf = vim.api.nvim_create_buf(false, false)
 
     vim.api.nvim_buf_call(M.process.buf, function()
