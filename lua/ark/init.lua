@@ -42,36 +42,6 @@ local config = {
     auto_start = true,
 }
 
-M.setup = function(cfg)
-    config = vim.tbl_extend("force", config, cfg)
-    vim.validate({
-        r_startup_file = { config.r_startup_file, { "string", "boolean" } },
-        ark_args = { config.ark_args, "string" },
-        python_cmd = { config.python_cmd, "string" }
-    })
-
-    if config.r_startup_file == true then
-        config.r_startup_file = helper_file("startup.R")
-    end
-
-    if config.log_file == true then
-        config.log_file = vim.fn.tempname() .. "ark.log"
-    end
-
-    vim.api.nvim_create_user_command("ArkStartKernel", function() M.start_kernel() end, {})
-    vim.api.nvim_create_user_command("ArkOpen", function() M.open() end, {})
-    vim.api.nvim_create_user_command("ArkKill", function() M.kill() end, {})
-    vim.api.nvim_create_user_command("ArkRestart", function() M.restart() end, {})
-
-    if config.auto_start then
-        vim.api.nvim_create_autocmd("BufEnter", {
-            pattern = "*.R",
-            group = vim.api.nvim_create_augroup("ark", {}),
-            callback = function() M.start_lsp() end,
-        })
-    end
-end
-
 M.process = { channel = nil, lsp_port = nil, client_id = nil, buf = -1, win = -1 }
 
 local get_available_port = function()
@@ -180,6 +150,38 @@ M.execute = function(lines)
         return
     end
     vim.fn.chansend(M.process.channel, lines)
+end
+
+
+
+M.setup = function(cfg)
+    config = vim.tbl_extend("force", config, cfg)
+    vim.validate({
+        r_startup_file = { config.r_startup_file, { "string", "boolean" } },
+        ark_args = { config.ark_args, "string" },
+        python_cmd = { config.python_cmd, "string" }
+    })
+
+    if config.r_startup_file == true then
+        config.r_startup_file = helper_file("startup.R")
+    end
+
+    if config.log_file == true then
+        config.log_file = vim.fn.tempname() .. "ark.log"
+    end
+
+    vim.api.nvim_create_user_command("ArkStartKernel", function() M.start_kernel() end, {})
+    vim.api.nvim_create_user_command("ArkOpen", function() M.open() end, {})
+    vim.api.nvim_create_user_command("ArkKill", function() M.kill() end, {})
+    vim.api.nvim_create_user_command("ArkRestart", function() M.restart() end, {})
+
+    if config.auto_start then
+        vim.api.nvim_create_autocmd("BufEnter", {
+            pattern = "*.R",
+            group = vim.api.nvim_create_augroup("ark", {}),
+            callback = function() M.start_lsp() end,
+        })
+    end
 end
 
 return M
