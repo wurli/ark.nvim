@@ -167,16 +167,16 @@ function M.setup(cfg)
         config.log_file = vim.fn.tempname() .. "ark.log"
     end
 
-    vim.api.nvim_create_user_command("ArkStartKernel", function() M.start_kernel() end, {})
-    vim.api.nvim_create_user_command("ArkOpen", function() M.open() end, {})
-    vim.api.nvim_create_user_command("ArkKill", function() M.kill() end, {})
-    vim.api.nvim_create_user_command("ArkRestart", function() M.restart() end, {})
+    vim.api.nvim_create_user_command("ArkStartKernel", function() require("ark").start_kernel() end, {})
+    vim.api.nvim_create_user_command("ArkOpen", function() require("ark").open() end, {})
+    vim.api.nvim_create_user_command("ArkKill", function() require("ark").kill() end, {})
+    vim.api.nvim_create_user_command("ArkRestart", function() require("ark").restart() end, {})
 
     if config.auto_start then
         vim.api.nvim_create_autocmd("BufEnter", {
             pattern = "*.R",
             group = vim.api.nvim_create_augroup("ark", {}),
-            callback = function() M.start_lsp() end,
+            callback = function() require("ark").start_lsp() end,
         })
     end
 end
