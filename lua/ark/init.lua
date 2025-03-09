@@ -1,7 +1,7 @@
 M = {}
 
 local helper_file = function(file)
-    local curr_file = debug.getinfo(1).short_src
+    local curr_file = debug.getinfo(1).source
     local pkg_dir = vim.fs.dirname(vim.fs.dirname(vim.fs.dirname(curr_file)))
     local path = vim.fs.joinpath(pkg_dir, "helpers", file)
     if not vim.fn.filereadable(path) then
