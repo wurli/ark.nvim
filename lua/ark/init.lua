@@ -7,7 +7,7 @@ local helper_file = function(file)
     if not vim.fn.filereadable(path) then
         error("Can't find helper file " .. path)
     end
-    print("Found path " .. path)
+    vim.print("Found path " .. path)
     return path
 end
 
