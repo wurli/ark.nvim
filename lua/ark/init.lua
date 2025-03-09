@@ -67,7 +67,7 @@ M.setup = function(cfg)
         vim.api.nvim_create_autocmd("BufEnter", {
             pattern = "*.R",
             group = vim.api.nvim_create_augroup("ark", {}),
-            callback = M.start_lsp,
+            callback = function() M.start_lsp() end,
         })
     end
 end
