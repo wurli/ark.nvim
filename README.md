@@ -81,9 +81,8 @@ local config = {
 
     Quit Ark.
 
-*   `job_only`: Defaults to `false`; if `true` then the buffer/window used for
-
-    the R console will be left open.
+    *   `job_only`: Defaults to `false`; if `true` then the buffer/window used
+        for the R console will be left open.
 
 *   `:ArkRestart` / `require("ark").restart()`
 
