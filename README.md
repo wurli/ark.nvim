@@ -66,25 +66,32 @@ local config = {
 ## API
 
 *   `:ArkOpen` / `require("ark").open()`
+
     Start the Ark kernel and open the R console.
 
 *   `:ArkStartKernel` / `require("ark").start_kernel()`
+
     Start the Ark kernel. Note that this doesn't open the R console.
 
 *   `:ArkStartLsp` / `require("ark").start_lsp()`
+
     Start the Ark kernel and attach an LSP client.
 
 *   `:ArkKill` / `require("ark").kill(job_only)`
+
     Quit Ark.
 
 *   `job_only`: Defaults to `false`; if `true` then the buffer/window used for
+
     the R console will be left open.
 
 *   `:ArkRestart` / `require("ark").restart()`
+
     A convenience function to any Ark session which is already running and start
     another one if things get messed up.
 
 *   `require("ark").execute(data)`
+
     Send some code to the console. Note that this works even if the console
     isn't visible.
 
