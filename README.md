@@ -65,34 +65,46 @@ local config = {
 
 ## API
 
-### `:ArkOpen` / `require("ark").open()`
-Start the Ark kernel and open the R console.
+*   `:ArkOpen` / `require("ark").open()`
+    Start the Ark kernel and open the R console.
 
-### `:ArkStartKernel` / `require("ark").start_kernel()`
-Start the Ark kernel. Note that this doesn't open the R console.
+*   `:ArkStartKernel` / `require("ark").start_kernel()`
+    Start the Ark kernel. Note that this doesn't open the R console.
 
-### `:ArkStartLsp` / `require("ark").start_lsp()`
-Start the Ark kernel and attach an LSP client.
+*   `:ArkStartLsp` / `require("ark").start_lsp()`
+    Start the Ark kernel and attach an LSP client.
 
-### `:ArkKill` / `require("ark").kill(job_only)`
-Quit Ark.
+*   `:ArkKill` / `require("ark").kill(job_only)`
+    Quit Ark.
 
 *   `job_only`: Defaults to `false`; if `true` then the buffer/window used for
     the R console will be left open.
 
-### `:ArkRestart` / `require("ark").restart()`
-A convenience function to any Ark session which is already running and start
-another one if things get messed up.
+*   `:ArkRestart` / `require("ark").restart()`
+    A convenience function to any Ark session which is already running and start
+    another one if things get messed up.
 
-### `require("ark").execute(data)`
-Send some code to the console. Note that this works even if the console isn't
-visible.
+*   `require("ark").execute(data)`
+    Send some code to the console. Note that this works even if the console
+    isn't visible.
 
-* `data`: `string | string[]` Code to send. If a string, append `\n` to actually
-  execute the code. If a table, append `""` to actually execute the code.
+    *   `data`: `string | string[]` Code to send. If a string, append `\n` to
+        actually execute the code. If a table, append `""` to actually execute the code.
 
 ### `require("ark").is_running()`
 Detect whether there is an Ark/R session in use
+
+## Troubleshooting
+
+1.  Make sure Ark is running properly in Positron. If not, you probably have
+    bigger fish to fry. On an M1 Macbook I found I needed to make sure I was
+    using an arm64 R installation for Ark to start correctly.
+
+2.  Make sure your Python environment is set up. My (working) environment is
+    defined by [helpers/requirements.txt](/helpers/requirements.txt), and I'm
+    using Python 3.12.7.
+
+3.  After this I'm afraid you're probably pretty much on your own. Good luck!
 
 ## Limitations
 
