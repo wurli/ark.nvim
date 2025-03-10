@@ -1,6 +1,6 @@
 # ark.nvim
 
-![demo](https://github.com/user-attachments/assets/9ab31056-19b2-4476-a535-8a12ead39e23)
+![demo](https://github.com/user-attachments/assets/f78dc9f9-da78-40eb-aad8-e63d1cccb9f5)
 
 This is a _very_ basic proof-of-concept plugin which lets you use Neovim with R
 via the [Ark Jupyter kernel](https://github.com/posit-dev/ark). In particular,
@@ -24,7 +24,17 @@ locate your R installation you should be able to fix this by setting your
 
 Using lazy.nvim:
 ``` lua
-{ "wurli/ark.nvim", opts = {} }
+{
+    "wurli/ark.nvim",
+    dependencies = { "blink.cmp" }, -- or "nvim-cmp"
+    config = function()
+        require("ark").setup({
+            -- Or for nvim-cmp:
+            -- lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+            lsp_capabilities = require('blink.cmp').get_lsp_capabilities(),
+        })
+    end
+}
 ```
 
 ## Configuration
@@ -55,7 +65,7 @@ Using lazy.nvim:
 ---LSP attached when opening an R file.
 ---@field auto_start? boolean
 ---
----You may want to adjust this depending on the completion engine you use. E.g.
+---You should adjust this depending on the completion engine you use. E.g.
 ---`require("cmp_nvim_lsp").default_capabilities()` or
 ---`require('blink.cmp').get_lsp_capabilities()`.
 ---@field lsp_capabilities? table
@@ -91,9 +101,6 @@ local config = {
     defined by [helpers/requirements.txt](/helpers/requirements.txt), and I'm
     using Python 3.12.7.
 
-3.  For some reason I found that nvim-cmp gives **much** faster completion
-    results than blink.cmp. I'm still looking into why this is.
-
 3.  After this I'm afraid you're probably pretty much on your own. Good luck!
 
 ## Limitations
@@ -112,7 +119,7 @@ really is:
     system which would be some work to reimplement in Neovim. I'm up for this,
     but not before rewriting the plugin.
 
-*   No debugger for the same reasons
+*   No debugger for the same reasons.
 
 *   You can't turn off syntax highlighting in the console input text. Some might
     like this but I'm not sure I do.
