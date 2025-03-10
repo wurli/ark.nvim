@@ -110,8 +110,7 @@ really is:
 
 *   Autocomplete seems a bit slow for some reason; definitely slower than in
     Positron. No idea why this is, but I suspect it could be to do with the
-    `jupyter_console` library not being optimised for Ark and possibly spamming
-    the server with requests. Could be wrong.
+    `jupyter_console` library not being optimised for Ark.
 
 *   Etc.
 
