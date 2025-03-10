@@ -117,10 +117,6 @@ really is:
 *   You can't turn off syntax highlighting in the console input text. Some might
     like this but I'm not sure I do.
 
-*   Autocomplete seems a bit slow for some reason; definitely slower than in
-    Positron. No idea why this is, but I suspect it could be to do with the
-    `jupyter_console` library not being optimised for Ark.
-
 *   Etc.
 
 ## See also

@@ -34,18 +34,23 @@ end
 ---If `true`, Ark will automatically be started (in a hidden buffer) and the
 ---LSP attached when opening an R file.
 ---@field auto_start? boolean
+---
+---You may want to adjust this depending on the completion engine you use. E.g.
+---`require("cmp_nvim_lsp").default_capabilities()` or
+---`require('blink.cmp').get_lsp_capabilities()`.
+---@field lsp_capabilities? table
 local config = {
     r_startup_file = true,
     log_file = true,
     ark_args = "",
     python_cmd = "python3",
     auto_start = true,
+    lsp_capabilities = nil,
 }
 
 M.process = { channel = nil, lsp_port = nil, client_id = nil, buf = -1, win = -1 }
 
 local get_available_port = function()
-    vim.print(helper_file("get-available-port.py"))
     local cmd = { config.python_cmd, helper_file("get-available-port.py") }
     local res = vim.system(cmd, { text = true }):wait().stdout
     return tonumber(vim.fn.trim(res))
@@ -97,12 +102,16 @@ M.start_lsp = function()
         defer = 3000
     end
     vim.defer_fn(function()
-        M.process.client_id = vim.lsp.start({
-            cmd = vim.lsp.rpc.connect("127.0.0.1", M.process.lsp_port),
-            name = "ark",
-            filetypes = { "r" },
-            root_dir = vim.fs.root(0, { ".git", ".Rproj" })
-        })
+        M.process.client_id = vim.lsp.start(
+            {
+                cmd = vim.lsp.rpc.connect("127.0.0.1", M.process.lsp_port),
+                name = "ark",
+                filetypes = { "r" },
+                root_dir = vim.fs.root(0, { ".git", ".Rproj" }),
+                capabilities = config.lsp_capabilities,
+            },
+            { bufnr = 0 }
+        )
     end, defer)
 end
 
@@ -161,8 +170,11 @@ function M.setup(cfg)
     config = vim.tbl_extend("force", config, cfg)
     vim.validate({
         r_startup_file = { config.r_startup_file, { "string", "boolean" } },
+        log_file = { config.log_file, { "string", "boolean" } },
         ark_args = { config.ark_args, "string" },
-        python_cmd = { config.python_cmd, "string" }
+        python_cmd = { config.python_cmd, "string" },
+        auto_start = { config.auto_start, "boolean" },
+        lsp_capabilities = { config.lsp_capabilities, { "table", "nil" } }
     })
 
     if config.r_startup_file == true then
