@@ -1,6 +1,6 @@
 # ark.nvim
 
-![demo](https://github.com/user-attachments/assets/55376554-6dd1-4882-8732-cb04f7d93560)
+![demo](https://github.com/user-attachments/assets/9ab31056-19b2-4476-a535-8a12ead39e23)
 
 This is a _very_ basic proof-of-concept plugin which lets you use Neovim with R
 via the [Ark Jupyter kernel](https://github.com/posit-dev/ark). In particular,
@@ -54,12 +54,18 @@ Using lazy.nvim:
 ---If `true`, Ark will automatically be started (in a hidden buffer) and the
 ---LSP attached when opening an R file.
 ---@field auto_start? boolean
+---
+---You may want to adjust this depending on the completion engine you use. E.g.
+---`require("cmp_nvim_lsp").default_capabilities()` or
+---`require('blink.cmp').get_lsp_capabilities()`.
+---@field lsp_capabilities? table
 local config = {
     r_startup_file = true,
     log_file = true,
     ark_args = "",
     python_cmd = "python3",
     auto_start = true,
+    lsp_capabilities = nil,
 }
 ````
 
@@ -84,6 +90,9 @@ local config = {
 2.  Make sure your Python environment is set up. My (working) environment is
     defined by [helpers/requirements.txt](/helpers/requirements.txt), and I'm
     using Python 3.12.7.
+
+3.  For some reason I found that nvim-cmp gives **much** faster completion
+    results than blink.cmp. I'm still looking into why this is.
 
 3.  After this I'm afraid you're probably pretty much on your own. Good luck!
 
