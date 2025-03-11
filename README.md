@@ -130,6 +130,7 @@ local config = {
         <td>
             Send some code to the console. Note that this works even if the
             console isn't visible.
+
             *   `data`: Code to send. If a string, append `\n` to actually
                 execute the code. If a table, append `""` to actually
                 execute the code.
@@ -140,10 +141,13 @@ local config = {
         <td>`require("ark").execute_current()`</td>
         <td>
             Sends code from the current R script to the console:
+
             * In visual mode, sends the current selection
             * In normal more, sends the current expression
+
             This isn't bound to a keymap by default, but you can easily do so
             yourself, e.g. using
+
             ``` lua
             vim.api.nvim_create_autocmd("BufEnter", {
                 pattern = "*.R",
@@ -156,6 +160,7 @@ local config = {
                 end
             })
             ```
+
         </td>
     </tr>
 </table>
