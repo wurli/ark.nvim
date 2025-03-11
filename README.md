@@ -81,30 +81,49 @@ local config = {
 
 ## API
 
-#### `:ArkOpen` / `require("ark").open()`
+### `:ArkOpen` / `require("ark").open(opts)`
 Start the Ark kernel and open the R console.
 
-#### `:ArkStartKernel` / `require("ark").start_kernel()`
+*   `opts`: See the `config` argument to `:h nvim_open_win()`
+
+### `:ArkStartKernel` / `require("ark").start_kernel()`
 Start the Ark kernel without opening the R console.
 
-#### `:ArkStartLsp` / `require("ark").start_lsp()`
+### `:ArkStartLsp` / `require("ark").start_lsp()`
 Start the Ark kernel and attach an LSP client.
 
-#### `:ArkKill` / `require("ark").kill(job_only)`
+### `:ArkKill` / `require("ark").kill(job_only)`
 
 Quit Ark.
 *   `job_only`: Defaults to `false`; if `true` then the
     buffer/window used for the R console will be left open.
 
-#### `:ArkRestart` / `require("ark").restart()`
+### `:ArkRestart` / `require("ark").restart()`
 
 A convenience function to any Ark session which is already running
 and start another one if things get messed up.
 
-#### `require("ark").is_running()`
+### `:ArkToggle` / `require("ark").toggle(opts)`
+
+Toggle visibility of the R console.
+
+*   `opts`: See the `config` argument to `:h nvim_open_win()`
+
+This is handy to bind to a keymap like so:
+
+``` lua
+vim.keymap.set(
+    "n", "<leader><leader>r",
+    function() require("ark").toggle() end,
+    { desc = "Toggle the R console" }
+)
+```
+
+### `require("ark").is_running()`
+
 Detect whether there is an Ark/R session in use
 
-#### `require("ark").execute_lines(data)`
+### `require("ark").execute_lines(data)`
 
 Send some code to the console. Note that this works even if the
 console isn't visible.
@@ -112,7 +131,7 @@ console isn't visible.
     execute the code. If a table, append `""` to actually
     execute the code.
 
-#### `require("ark").execute_current()`
+### `require("ark").execute_current()`
 
 Sends code from the current R script to the console:
 

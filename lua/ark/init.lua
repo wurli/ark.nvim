@@ -114,6 +114,7 @@ M.start_lsp = function()
             },
             { bufnr = 0 }
         )
+        print("Started Ark LSP")
     end, defer)
 end
 
@@ -133,6 +134,14 @@ M.open = function(opts)
         vim.wo[M.process.win].number = false
         vim.wo[M.process.win].relativenumber = false
     end
+end
+
+M.toggle = function(opts)
+    if not M.is_running() or not vim.api.nvim_win_is_valid(M.process.win) then
+        M.open(opts)
+        return
+    end
+    vim.api.nvim_win_hide(M.process.win)
 end
 
 M.kill = function(job_only)
@@ -207,9 +216,10 @@ function M.setup(cfg)
     end
 
     vim.api.nvim_create_user_command("ArkStartKernel", function() M.start_kernel() end, {})
-    vim.api.nvim_create_user_command("ArkOpen",        function() M.open() end, {})
-    vim.api.nvim_create_user_command("ArkKill",        function() M.kill() end, {})
-    vim.api.nvim_create_user_command("ArkRestart",     function() M.restart() end, {})
+    vim.api.nvim_create_user_command("ArkOpen",        function() M.open()         end, {})
+    vim.api.nvim_create_user_command("ArkKill",        function() M.kill()         end, {})
+    vim.api.nvim_create_user_command("ArkRestart",     function() M.restart()      end, {})
+    vim.api.nvim_create_user_command("ArkToggle",      function() M.toggle()       end, {})
 
     if config.auto_start then
         vim.api.nvim_create_autocmd("BufEnter", {
