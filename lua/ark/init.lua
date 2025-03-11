@@ -39,6 +39,8 @@ end
 ---`require("cmp_nvim_lsp").default_capabilities()` or
 ---`require('blink.cmp').get_lsp_capabilities()`.
 ---@field lsp_capabilities? table
+---
+---@field
 local config = {
     r_startup_file = true,
     log_file = true,
@@ -157,13 +159,32 @@ end
 ---@param lines string | string[] Code to send to Ark. If this is a string,
 ---  append `\n` to execute the code. If a table, append `""` to execute the
 ---  code.
-M.execute = function(lines)
+M.execute_lines = function(lines)
     if not M.is_running() then
         print("Ark is not running - use :ArkOpen to start Ark.")
         vim.fn.getchar()
         return
     end
     vim.fn.chansend(M.process.channel, lines)
+end
+
+---Send code to the console
+---* In visual mode, sends the current selection
+---* In normal mode, send the current expression
+M.execute_current = function()
+    local mode = vim.fn.mode()
+    local get = require("ark.get_code")
+    local lines = {}
+
+    if mode == "n" then
+        lines = get.current_expr()
+    end
+    if mode == "v" then
+        lines = get.selection()
+    end
+
+    table.insert(lines, "")
+    M.execute_lines(lines)
 end
 
 function M.setup(cfg)

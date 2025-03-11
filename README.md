@@ -81,15 +81,85 @@ local config = {
 
 ## API
 
-| Vim               | Lua                             | Description                                                                                                       |
-| ---               | ---                             | ---                                                                                                               |
-| `:ArkOpen`        | `require("ark").open()`         | Start the Ark kernel and open the R console.                                                                      |
-| `:ArkStartKernel` | `require("ark").start_kernel()` | Start the Ark kernel. Note that this doesn't open the R console.                                                  |
-| `:ArkStartLsp`    | `require("ark").start_lsp()`    | Start the Ark kernel and attach an LSP client.                                                                    |
-| `:ArkKill`        | `require("ark").kill(job_only)` | Quit Ark.<br/><ul><li>Defaults to `false`; if `true` then the buffer/window used for the R console will be left open.</li></ul> |
-| `:ArkRestart`     | `require("ark").restart()`      | A convenience function to any Ark session which is already running and start another one if things get messed up. |
-|                   | `require("ark").is_running()`   | Detect whether there is an Ark/R session in use                                                                   |
-|                   | `require("ark").execute(data)`  | Send some code to the console. Note that this works even if the console isn't visible.<br/> <ul><li>`data`: Code to send. If a string, append `\n` to actually execute the code. If a table, append `""` to actually execute the code.</li></ul> |
+<table>
+    <tr>
+        <td>Vim</td>
+        <td>Lua</td>
+        <td>Description</td>
+    </tr>
+    <tr>
+        <td>`:ArkOpen`</td>
+        <td>`require("ark").open()`</td>
+        <td>Start the Ark kernel and open the R console.</td>
+    </tr>
+    <tr>
+        <td>`:ArkStartKernel`</td>
+        <td>`require("ark").start_kernel()`</td>
+        <td>Start the Ark kernel without opening the R console.</td>
+    </tr>
+    <tr>
+        <td>`:ArkStartLsp`</td>
+        <td>`require("ark").start_lsp()`</td>
+        <td>Start the Ark kernel and attach an LSP client.</td>
+    </tr>
+    <tr>
+        <td>`:ArkKill`</td>
+        <td>`require("ark").kill(job_only)`</td>
+        <td>
+            Quit Ark.
+            *   `job_only`: Defaults to `false`; if `true` then the
+                buffer/window used for the R console will be left open.
+        </td>
+    </tr>
+    <tr>
+        <td>`:ArkRestart`</td>
+        <td>`require("ark").restart()`</td>
+        <td>
+            A convenience function to any Ark session which is already running
+            and start another one if things get messed up.
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>`require("ark").is_running()`</td>
+        <td>Detect whether there is an Ark/R session in use</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>`require("ark").execute_lines(data)`</td>
+        <td>
+            Send some code to the console. Note that this works even if the
+            console isn't visible.
+            *   `data`: Code to send. If a string, append `\n` to actually
+                execute the code. If a table, append `""` to actually
+                execute the code.
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>`require("ark").execute_current()`</td>
+        <td>
+            Sends code from the current R script to the console:
+            * In visual mode, sends the current selection
+            * In normal more, sends the current expression
+            This isn't bound to a keymap by default, but you can easily do so
+            yourself, e.g. using
+            ``` lua
+            vim.api.nvim_create_autocmd("BufEnter", {
+                pattern = "*.R",
+                callback = function()
+                    vim.keymap.set(
+                        { "n", "v" }, "<Enter>",
+                        require("ark").execute_current,
+                        { buffer = 0, desc = "Send code to the R console" }
+                    )
+                end
+            })
+            ```
+        </td>
+    </tr>
+</table>
+
 
 ## Troubleshooting
 
