@@ -82,7 +82,7 @@ local config = {
 ## API
 
 -------------------------------------------------------------------------------
-##### Start the Ark kernel and open the R console
+#### Start the Ark kernel and open the R console
 
 *   Vim: `:ArkOpen`
 *   Lua: `require("ark").open(opts)`
@@ -91,19 +91,19 @@ local config = {
 *   `opts`: See the `config` argument to `:h nvim_open_win()`
 
 -------------------------------------------------------------------------------
-##### Start the Ark kernel _without_ opening the R console.
+#### Start the Ark kernel _without_ opening the R console
 
 *   Vim: `:ArkStartKernel`
 *   Lua: `require("ark").start_kernel()`
 
 -------------------------------------------------------------------------------
-##### Start the Ark kernel and attach an LSP client
+#### Start the Ark kernel and attach an LSP client
 
 *   Vim: `:ArkStartLsp`
 *   Lua: `require("ark").start_lsp()`
 
 -------------------------------------------------------------------------------
-##### Quit Ark
+#### Quit Ark
 
 *   Vim: `:ArkKill`
 *   Lua: `require("ark").kill(job_only)`
@@ -113,14 +113,14 @@ local config = {
     the R console will be left open.
 
 -------------------------------------------------------------------------------
-##### Shut down Ark if it's already running, then start another session
+#### Shut down Ark if it's already running, then start another session
 Useful if things get messed up.
 
 *   Vim: `:ArkRestart`
 *   Lua: `require("ark").restart()`
 
 -------------------------------------------------------------------------------
-##### Show/hide the R console
+#### Show/hide the R console
 
 *   Vim: `:ArkToggle`
 *   Lua: `require("ark").toggle(opts)`
@@ -139,12 +139,12 @@ vim.keymap.set(
 ```
 
 -------------------------------------------------------------------------------
-##### Check if Ark is running
+#### Check if Ark is running
 
 *   Lua: `require("ark").is_running()`
 
 -------------------------------------------------------------------------------
-##### Send some code to the console
+#### Send some code to the console
 
 Note that this works even if the console isn't visible.
 
@@ -155,7 +155,7 @@ Note that this works even if the console isn't visible.
     If a table, append `""` to actually execute the code.
 
 -------------------------------------------------------------------------------
-##### Sends code from the current R script to the console
+#### Sends code from the current R script to the console
 
 In visual mode, sends the current selection; in normal mode, sends the current
 expression.
