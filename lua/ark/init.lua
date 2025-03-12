@@ -96,6 +96,10 @@ end
 
 M.start_lsp = function()
     local defer = 0
+    -- We might delay while setting up the LSP, during which time the user might
+    -- move to a different file. So, we need to save the current buffer number
+    -- so we don't attach the Ark LSP to a buffer with the wrong filetype.
+    local buf = vim.fn.bufnr()
     if not M.is_running() then
         M.start_kernel()
         -- Need to give the kernel a chance to start the server. Yes, ideally
@@ -112,7 +116,8 @@ M.start_lsp = function()
                 root_dir = vim.fs.root(0, { ".git", ".Rproj" }),
                 capabilities = config.lsp_capabilities,
             },
-            { bufnr = 0 }
+            ---@diagnostic disable-next-line: missing-fields
+            { bufnr = buf }
         )
         print("Started Ark LSP")
     end, defer)
