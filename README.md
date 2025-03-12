@@ -155,7 +155,7 @@ Note that this works even if the console isn't visible.
     If a table, append `""` to actually execute the code.
 
 -------------------------------------------------------------------------------
-#### Sends code from the current R script to the console
+#### Run code from the current script
 
 In visual mode, sends the current selection; in normal mode, sends the current
 expression.
