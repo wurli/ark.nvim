@@ -81,8 +81,7 @@ local config = {
 
 ## API
 
--------------------------------------------------------------------------------
-Start the Ark kernel and open the R console.
+### `:ArkOpen`: Start the Ark kernel and open the R console.
 
 *   Vim: `:ArkOpen`
 *   Lua: `require("ark").open(opts)`
