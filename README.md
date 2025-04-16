@@ -1,6 +1,13 @@
 # ark.nvim
 
+
 ![demo](https://github.com/user-attachments/assets/f78dc9f9-da78-40eb-aad8-e63d1cccb9f5)
+
+> [!WARNING]
+> This plugin was last tested with Ark 0.1.170. Since this version there have
+> been some changes to how Ark starts up, which may cause issues. If you really
+> want to test this plugin and the current version of Ark doesn't work, please
+> downgrade your Ark installation until my rewrite of this plugin is done :)
 
 This is a _very_ basic proof-of-concept plugin which lets you use Neovim with R
 via the [Ark Jupyter kernel](https://github.com/posit-dev/ark). In particular,
